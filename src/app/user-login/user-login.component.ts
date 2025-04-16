@@ -1,4 +1,4 @@
-import { NgOptimizedImage } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import {
   MatCard,
@@ -8,11 +8,12 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { merge } from 'rxjs';
+
 
 @Component({
   selector: 'app-user-login',
@@ -28,6 +29,7 @@ import { merge } from 'rxjs';
     MatIconModule,
     NgOptimizedImage,
     MatGridListModule,
+    CommonModule,
   ],
   templateUrl: './user-login.component.html',
   styleUrl: './user-login.component.scss',
@@ -37,5 +39,21 @@ export class UserLoginComponent {
   clickEvent(event: MouseEvent) {
     this.hide.set(!this.hide());
     event.stopPropagation();
+  }
+
+  signInForm: FormGroup;
+  showExtraFields = true;
+
+  constructor(private fb: FormBuilder) {
+    this.signInForm = this.fb.group({
+      email: [''],
+      username: [''],
+      firstName: [''],
+      password: [''],
+    });
+  }
+
+  toggleFields() {
+    this.showExtraFields = !this.showExtraFields;
   }
 }

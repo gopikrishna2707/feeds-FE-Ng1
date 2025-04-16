@@ -2,3 +2,14 @@
     border: 1px solid grey;
     border-radius: 2px;
 }
+.background-image {
+    background-image: url("/src/assets/images/pexels-cottonbro-6591165.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+.already-button{
+ background: none;
+ color: red;
+}
