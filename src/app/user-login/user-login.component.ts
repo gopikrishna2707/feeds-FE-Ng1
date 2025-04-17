@@ -35,25 +35,27 @@ import { merge } from 'rxjs';
   styleUrl: './user-login.component.scss',
 })
 export class UserLoginComponent {
-  hide = signal(true);
-  clickEvent(event: MouseEvent) {
-    this.hide.set(!this.hide());
-    event.stopPropagation();
-  }
-
-  signInForm: FormGroup;
   showExtraFields = true;
+  isPasswordVisible: boolean = false;
 
-  constructor(private fb: FormBuilder) {
-    this.signInForm = this.fb.group({
-      email: [''],
-      username: [''],
-      firstName: [''],
-      password: [''],
-    });
-  }
+  constructor(private fb: FormBuilder) {}
+
+  signInForm = new FormGroup({
+    email: new FormControl('', Validators.email),
+    firstName: new FormControl(''),
+    lastName: new FormControl(''),
+    password: new FormControl('', Validators.required)
+  });
 
   toggleFields() {
     this.showExtraFields = !this.showExtraFields;
+  }
+
+  togglePasswordVisibility() {
+    this.isPasswordVisible = !this.isPasswordVisible;
+  }
+
+  onSubmit() {
+    
   }
 }

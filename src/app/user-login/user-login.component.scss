@@ -13,3 +13,19 @@
  background: none;
  color: red;
 }
+.transparent-button {
+    text-decoration: underline;
+    letter-spacing: 0.5px;
+    margin: auto;
+    margin-left: 0px;
+    &:hover {
+        cursor: pointer;
+    }
+}
+.margin-large-right{
+    margin-right: 30px;
+}
+.justify-center{
+    display: flex;
+    justify-content: center;
+}

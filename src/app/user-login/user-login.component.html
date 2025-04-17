@@ -8,32 +8,45 @@
             alt="Logo"
             height="48"
             width="48"
-            class="inline"
           />
-          <h1 class="text-3xl">Sign in</h1>
+          <h1 class="text-3xl">SignIn</h1>
           <p>to continue to Application</p>
         </div>
       </mat-grid-tile>
       <mat-grid-tile>
         <div>
-          <form [formGroup]="signInForm">
+          <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
             <div>
               <mat-form-field appearance="outline">
                 <mat-label>Enter your email</mat-label>
-                <input matInput formControlName="email" placeholder="pat@example.com" required />
+                <input
+                  matInput
+                  formControlName="email"
+                  placeholder="pat@example.com"
+                  required
+                />
                 <mat-icon matSuffix>email</mat-icon>
               </mat-form-field>
             </div>
             <div>
               <mat-form-field appearance="outline">
                 <mat-label>Enter your password</mat-label>
-                <input matInput formControlName="password" [type]="hide() ? 'password' : 'text'" />
+                <input
+                  matInput
+                  [type]="isPasswordVisible ? 'text' : 'password'"
+                  formControlName="password"
+                />
                 <button
                   mat-icon-button
                   matSuffix
-                  [attr.aria-label]="'Hide password'"
+                  [attr.aria-label]="
+                    isPasswordVisible ? 'Hide password' : 'Show password'
+                  "
+                  (click)="togglePasswordVisibility()"
                 >
-                  <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
+                  <mat-icon>{{
+                    isPasswordVisible ? "visibility_off" : "visibility"
+                  }}</mat-icon>
                 </button>
               </mat-form-field>
             </div>
@@ -47,8 +60,18 @@
                 <input matInput formControlName="username" />
               </mat-form-field>
             </div>
-            <div>
-              <button class="already-button" mat-button (click)="toggleFields()">Already have an account. click here!</button>
+            <div class="justify-center">
+              <button
+                class="transparent-button justify-center"
+                mat-button
+                (click)="toggleFields()"
+              >
+                Already have an account. click here!
+              </button>
+            </div>
+            <div class="justify-center">
+              <button mat-button *ngIf="showExtraFields">Sign in</button>
+              <button mat-button *ngIf="!showExtraFields">Log in</button>
             </div>
           </form>
         </div>
@@ -56,4 +79,3 @@
     </mat-grid-list>
   </mat-card-content>
 </mat-card>
-
