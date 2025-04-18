@@ -13,6 +13,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { merge } from 'rxjs';
+import { consumerMarkDirty } from '@angular/core/primitives/signals';
 
 
 @Component({
@@ -35,6 +36,7 @@ import { merge } from 'rxjs';
   styleUrl: './user-login.component.scss',
 })
 export class UserLoginComponent {
+  
   showExtraFields = true;
   isPasswordVisible: boolean = false;
 
@@ -56,6 +58,8 @@ export class UserLoginComponent {
   }
 
   onSubmit() {
-    
+    const email = this.signInForm.get('email')?.value;
+    const password = this.signInForm.get('password')?.value;
+    console.log(email, password);
   }
 }

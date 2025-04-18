@@ -1,2 +1,42 @@
-<app-user-login></app-user-login>
+<!-- <app-home-page></app-home-page><app-user-login></app-user-login> -->
+<mat-card>
+    <mat-card-content>
+      <mat-toolbar class="margin-small-left">
+        <button
+          mat-icon-button
+          class="example-icon"
+          aria-label="Example icon-button with menu icon"
+        >
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span>Feeds</span>
+        <span class="example-spacer"></span>
+        <button
+          mat-icon-button
+          class="example-icon favorite-icon"
+          aria-label="Example icon-button with heart icon"
+          (click)="navigateTo()"
+        >
+          <mat-icon>home</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>info</mat-icon>
+            <span>info</span>
+          </button>
+          <button mat-menu-item (click)="navigateToLogin()">
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+          </button>
+        </mat-menu>
+      </mat-toolbar>
+    </mat-card-content>
+</mat-card>
 <router-outlet />
