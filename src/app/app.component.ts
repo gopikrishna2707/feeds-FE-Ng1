@@ -36,11 +36,13 @@ export class AppComponent {
   constructor(private router: Router) {}
   title = 'feeds';
 
+  showFiller = false;
+
   navigateTo() {
-    console.log('navigating')
+    console.log('navigating');
     this.router.navigate(['home']);
   }
   navigateToLogin() {
-    this.router.navigate(['auth'])
+    this.router.navigate(['auth']);
   }
 }

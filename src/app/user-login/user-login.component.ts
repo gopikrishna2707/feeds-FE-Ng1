@@ -12,8 +12,6 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { merge } from 'rxjs';
-import { consumerMarkDirty } from '@angular/core/primitives/signals';
 
 
 @Component({
