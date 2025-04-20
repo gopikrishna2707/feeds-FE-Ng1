@@ -1,5 +1,12 @@
 <mat-card>
     <mat-card-content>
-        Home component
+        <ng-container>
+            <div *ngFor="let item of restDetails">
+                <div>{{item.id}}</div>
+                <div>{{item.restName}}</div>
+                <div>{{item.restAddress}}</div>
+                <div>{{item.restDistance}}</div>
+            </div>
+        </ng-container>
     </mat-card-content>
 </mat-card>
