@@ -1,12 +1,12 @@
 <mat-card>
-    <mat-card-content>
-        <ng-container>
-            <div *ngFor="let item of restDetails">
-                <div>{{item.id}}</div>
-                <div>{{item.restName}}</div>
-                <div>{{item.restAddress}}</div>
-                <div>{{item.restDistance}}</div>
-            </div>
-        </ng-container>
-    </mat-card-content>
+  <mat-card-content class="content-margin">
+    <h1>Restos Available</h1>
+    <div class="restaurant-list">
+      <div *ngFor="let item of restDetails" class="restaurant-item">
+        <span class="restaurant-name">Resto: {{ item.restName }}</span>
+        <span class="restaurant-address">Address: {{ item.restAddress }}</span>
+        <span class="restaurant-distance">DIstance: {{ item.restDistance }}</span>
+      </div>
+    </div>
+  </mat-card-content>
 </mat-card>

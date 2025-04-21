@@ -11,8 +11,8 @@ import {
 } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { RestFeedsDetailsService } from '../services/rest-feeds-details.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home-page',
@@ -32,7 +32,11 @@ import { RestFeedsDetailsService } from '../services/rest-feeds-details.service'
   styleUrl: './home-page.component.scss',
 })
 export class HomePageComponent implements OnInit {
-  constructor(private restFeeds: RestFeedsDetailsService) { }
+  constructor(
+    private restFeeds: RestFeedsDetailsService,
+    private snackbar:MatSnackBar
+  
+  ) { }
   
   ngOnInit(): void {
     this.getRestDetails();
@@ -50,8 +54,15 @@ export class HomePageComponent implements OnInit {
         },
         error: (error) => {
           console.log(error);
+          this.snackbar.open('there are any restaurant available',
+            'close', {duration:3000}
+          )
         },
       })
     );
+  }
+
+  unSubscribeAll(){
+    this.subscriptions$.unsubscribe();
   }
 }
