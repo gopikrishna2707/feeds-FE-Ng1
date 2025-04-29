@@ -15,7 +15,7 @@
         </mat-grid-tile>
         <mat-grid-tile>
           <div>
-            <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="signInForm" (ngSubmit)="sendLoginDetails(signInForm.value.email, signInForm.value.password)">
               <div>
                 <mat-form-field appearance="outline">
                   <mat-label>Enter your email</mat-label>

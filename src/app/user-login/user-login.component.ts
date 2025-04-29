@@ -12,6 +12,8 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { Subscription, throwError } from 'rxjs';
+import { RestFeedsDetailsService } from '../services/rest-feeds-details.service';
 
 
 @Component({
@@ -34,11 +36,15 @@ import { MatGridListModule } from '@angular/material/grid-list';
   styleUrl: './user-login.component.scss',
 })
 export class UserLoginComponent {
+
+  private subscriptions$ = new Subscription();
   
   showExtraFields = true;
   isPasswordVisible: boolean = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder,
+    private restFeeds: RestFeedsDetailsService
+  ) { }
 
   signInForm = new FormGroup({
     email: new FormControl('', Validators.email),
@@ -56,8 +62,28 @@ export class UserLoginComponent {
   }
 
   onSubmit() {
-    const email = this.signInForm.get('email')?.value;
-    const password = this.signInForm.get('password')?.value;
-    console.log(email, password);
+    const email = this.signInForm.controls.email;
+    const password = this.signInForm.controls.password;
+  }
+
+  sendLoginDetails(email: string | null | undefined, password: string | null | undefined) {
+    
+    {
+      if (!email || !password) { console.error('Email or password is missing'); return; }
+
+      const credentials = { email, password }
+      this.subscriptions$.add(
+        this.restFeeds.sendLoginDetails(credentials).subscribe({
+          next(value) {
+            return value;
+          },
+          error(err) {
+            console.log(err);
+            return throwError(() => new Error('error'));
+          },
+        }
+        )
+      )
+    }
   }
 }

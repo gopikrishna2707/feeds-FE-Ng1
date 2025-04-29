@@ -62,7 +62,7 @@ export class HomePageComponent implements OnInit {
     );
   }
 
-  unSubscribeAll(){
+  ngOnDestroy(){
     this.subscriptions$.unsubscribe();
   }
 }
