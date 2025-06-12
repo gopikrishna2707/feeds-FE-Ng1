@@ -10,9 +10,11 @@ import {
   MatCardContent,
 } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
-import { Subscription } from 'rxjs';
+import { delay, Subscription } from 'rxjs';
 import { RestFeedsDetailsService } from '../services/rest-feeds-details.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RESTOS_AVAILABLE } from '../mockData';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @Component({
   selector: 'app-home-page',
@@ -27,6 +29,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatCardContent,
     MatMenuModule,
     MatSidenavModule,
+    NgxSkeletonLoaderModule
   ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss',
@@ -34,27 +37,33 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class HomePageComponent implements OnInit {
   constructor(
     private restFeeds: RestFeedsDetailsService,
-    private snackbar:MatSnackBar
+    private snackBar:MatSnackBar
   
   ) { }
   
   ngOnInit(): void {
-    this.getRestDetails();
+     this.getRestDetails();
   }
 
   private subscriptions$ = new Subscription();
 
   restDetails: any[] = [];
 
+  isLoad:boolean = false;
+
   getRestDetails(): void {
     this.subscriptions$.add(
       this.restFeeds.getRestDetails().subscribe({
         next: (response) => {
-          this.restDetails = response;
+          //this.restDetails = response;
+           delay(5000);
         },
         error: (error) => {
+          this.isLoad = true;
           console.log(error);
-          this.snackbar.open('there are any restaurant available',
+          delay(5000);
+          this.restDetails = RESTOS_AVAILABLE
+          this.snackBar.open('there are any restaurant available',
             'close', {duration:3000}
           )
         },

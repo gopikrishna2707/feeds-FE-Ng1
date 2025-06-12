@@ -12,22 +12,21 @@ import {
   MatCardActions,
   MatCardContent,
 } from '@angular/material/card';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     RouterOutlet,
-    UserLoginComponent,
-    HomePageComponent,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     MatCard,
-    MatCardActions,
     MatCardContent,
     MatMenuModule,
     MatSidenavModule,
+    NgxSkeletonLoaderModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

@@ -14,7 +14,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { Subscription, throwError } from 'rxjs';
 import { RestFeedsDetailsService } from '../services/rest-feeds-details.service';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-login',
@@ -36,21 +37,23 @@ import { RestFeedsDetailsService } from '../services/rest-feeds-details.service'
   styleUrl: './user-login.component.scss',
 })
 export class UserLoginComponent {
-
   private subscriptions$ = new Subscription();
-  
+
   showExtraFields = true;
   isPasswordVisible: boolean = false;
 
-  constructor(private fb: FormBuilder,
-    private restFeeds: RestFeedsDetailsService
-  ) { }
+  constructor(
+    private fb: FormBuilder,
+    private restFeeds: RestFeedsDetailsService,
+    private snackBar: MatSnackBar,
+    private router:Router
+  ) {}
 
   signInForm = new FormGroup({
     email: new FormControl('', Validators.email),
     firstName: new FormControl(''),
     lastName: new FormControl(''),
-    password: new FormControl('', Validators.required)
+    password: new FormControl('', Validators.required),
   });
 
   toggleFields() {
@@ -61,29 +64,40 @@ export class UserLoginComponent {
     this.isPasswordVisible = !this.isPasswordVisible;
   }
 
+ 
   onSubmit() {
-    const email = this.signInForm.controls.email;
-    const password = this.signInForm.controls.password;
+    const email = this.signInForm.controls.email.value as string;
+    const password = this.signInForm.controls.password.value as string;
+    this.sendLoginDetails(email, password);
   }
 
-  sendLoginDetails(email: string | null | undefined, password: string | null | undefined) {
-    
-    {
-      if (!email || !password) { console.error('Email or password is missing'); return; }
+  sendLoginDetails(email: string, password: string) {
+    console.log('Email:', email); 
+    console.log('Password:', password);
 
-      const credentials = { email, password }
+    {
+      if (!email || !password) {
+        console.error('Email or password is missing', email, password);
+        this.snackBar.open('email or password is missing', 'close', {
+          duration: 3000,
+        });
+        return;
+      }
+
+      const credentials = { email, password };
       this.subscriptions$.add(
         this.restFeeds.sendLoginDetails(credentials).subscribe({
-          next(value) {
+          next: (value) => {
+            console.log(credentials);
+            this.router.navigate(['home'])
             return value;
           },
-          error(err) {
+          error:(err) => {
             console.log(err);
             return throwError(() => new Error('error'));
           },
-        }
-        )
-      )
+        })
+      );
     }
   }
 }
