@@ -26,7 +26,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     MatCardContent,
     MatMenuModule,
     MatSidenavModule,
-    NgxSkeletonLoaderModule
+    NgxSkeletonLoaderModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
