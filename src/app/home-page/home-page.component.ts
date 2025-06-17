@@ -15,7 +15,11 @@ import { RestFeedsDetailsService } from '../services/rest-feeds-details.service'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RESTOS_AVAILABLE } from '../mockData';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-
+import { MatDialog } from '@angular/material/dialog';
+import { ViewComponetComponent } from '../shared/components/view-componet/view-componet.component';
+import { RestoDetailsComponent } from "../components/resto-details/resto-details.component";
+import {MatTabsModule} from '@angular/material/tabs';
+import { DonarDetailsComponent } from "../components/donar-details/donar-details.component";
 @Component({
   selector: 'app-home-page',
   standalone: true,
@@ -29,15 +33,20 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     MatCardContent,
     MatMenuModule,
     MatSidenavModule,
-    NgxSkeletonLoaderModule
-  ],
+    NgxSkeletonLoaderModule,
+    RestoDetailsComponent,
+    MatTabsModule,
+    DonarDetailsComponent
+],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss',
 })
 export class HomePageComponent implements OnInit {
+  
   constructor(
     private restFeeds: RestFeedsDetailsService,
-    private snackBar:MatSnackBar
+    private snackBar:MatSnackBar,
+    private dialogRef:MatDialog
   
   ) { }
   
@@ -51,6 +60,8 @@ export class HomePageComponent implements OnInit {
 
   isLoad:boolean = false;
 
+  permission: boolean = false;
+
   getRestDetails(): void {
     this.subscriptions$.add(
       this.restFeeds.getRestDetails().subscribe({
@@ -62,13 +73,26 @@ export class HomePageComponent implements OnInit {
           this.isLoad = true;
           console.log(error);
           delay(5000);
-          this.restDetails = RESTOS_AVAILABLE
-          this.snackBar.open('there are any restaurant available',
+          this.restDetails = RESTOS_AVAILABLE.data;
+          this.permission = RESTOS_AVAILABLE.permission;
+          console.log(this.permission);
+          this.snackBar.open('there are not any restaurant available',
             'close', {duration:3000}
           )
         },
       })
     );
+  }
+
+  onViewClickBtn(){
+    const dialogRef = this.dialogRef.open(ViewComponetComponent, {
+      width:'300px',
+      height:'200px',
+      data:{
+        title:'hello from gk'
+      }
+    })
+    delay(2000);
   }
 
   ngOnDestroy(){

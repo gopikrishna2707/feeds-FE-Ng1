@@ -26,3 +26,17 @@
 .font-bold{
   font-weight: 500;
 }
+.example-tab-icon {
+  margin-right: 8px;
+}
+::ng-deep .mat-mdc-tab .mdc-tab-indicator__content--underline {
+  border-color: red !important;
+}
+::ng-deep .mat-mdc-tab .mdc-tab__text-label {
+  color: #555 !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  line-height: 24px !important;
+  letter-spacing: 0.15px !important;
+}
+

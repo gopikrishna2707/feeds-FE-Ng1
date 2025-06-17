@@ -1,0 +1,39 @@
+<mat-card>
+  <mat-card-content>
+    <mat-form-field appearance="fill">
+      <mat-label>search for restos</mat-label>
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput />
+    </mat-form-field>
+    <div class="accent font-large font-bold margin-medium-top">
+      Restos Available
+    </div>
+    <div class="restaurant-list margin-medium-top" *ngIf="!permission">
+      <div *ngIf="!isLoad; else showRestos">
+        <ngx-skeleton-loader
+          animation="progress-dark"
+          [theme]="{ width: '85vw', height: '30px' }"
+          count="4"
+        />
+      </div>
+      <ng-template #showRestos class="margin-medium-top">
+        <div
+          *ngFor="let item of restDetails"
+          class="restaurant-item margin-medium-right"
+          #showRestos
+        >
+          <span class="h3">{{ item.name }}</span>
+          <span class="mat-subtitle-1">{{ item.location }}</span>
+          <span class="restaurant-distance">{{ item.nearest_distance }}</span>
+          <button
+            mat-stroked-button
+            class="margin-large-top secondary-button"
+            (click)="onViewClickBtn()"
+          >
+            view
+          </button>
+        </div>
+      </ng-template>
+    </div>
+  </mat-card-content>
+</mat-card>

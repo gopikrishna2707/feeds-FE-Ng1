@@ -1,28 +1,21 @@
 <mat-card class="content-margin">
-  <mat-card-content class="content-margin">
-    <div class="accent font-large font-bold">Restos Available</div>
-    <div class="restaurant-list margin-medium-top">
-      <div *ngIf="!isLoad; else showRestos">
-        <ngx-skeleton-loader
-          animation="progress-dark"
-          [theme]="{ width: '85vw', height: '30px' }"
-          count="4"
-        />
-      </div>
-      <ng-template #showRestos>
-        <div
-          *ngFor="let item of restDetails"
-          class="restaurant-item margin-medium-right"
-          #showRestos
-        >
-          <span class="h3">{{ item.name }}</span>
-          <span class="mat-subtitle-1">{{ item.location }}</span>
-          <span class="restaurant-distance">{{ item.nearest_distance }}</span>
-          <button mat-stroked-button class="margin-large-top secondary-button">
-            view
-          </button>
-        </div>
-      </ng-template>
-    </div>
+  <mat-card-content>
+    <mat-tab-group mat-stretch-tabs="true" mat-align-tabs="start">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">restaurant</mat-icon>
+          Restos
+        </ng-template>
+        <app-resto-details></app-resto-details>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>food</mat-icon>
+          Donars
+        </ng-template>
+        <app-donar-details></app-donar-details>
+      </mat-tab>
+      <mat-tab label="others"> </mat-tab>
+    </mat-tab-group>
   </mat-card-content>
 </mat-card>
